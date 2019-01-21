@@ -321,6 +321,65 @@
 	<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="games">
 		<div class="my-auto">
 			<h2 class="mb-5">Games</h2>
+			<!-- Modal Creamy -->
+			<div id="modalCreamy" class="modal fade">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+					<p>
+						<ul class="fa-ul">
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Create and prototype
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Polishing
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Talking to programmers as designer
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Talking to artists as designer and programmer
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Build a level
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Be positive and patience
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Use of state and observer patterns
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Improve the project with iteration
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Work with milestone
+							</li>
+						</ul>
+					</p>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!-- fine modal -->
 			<div class="subheading mb-3 col-md-5">Creamy battle</div>
 			<div class="container">
 				<div class="row">
@@ -354,19 +413,62 @@
 								  <b>Technical designer</b> - help and discuss with programmer about problem resolutions and criticalities
 								</li>
 							</ul>
+							<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCreamy">
+							  <i class="fa fa-search-plus"></i><span></span> Achievement
+							</button>
 						</div>
 					</div>
 				</div>
 			</div> <!-- div container -->
 			<!-- start -->
+			<!-- Modal Creamy -->
+			<div id="modalHyperspace" class="modal fade">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+					<p>
+						<ul class="fa-ul">
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Create a good concept in a few time
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Dare, you have nothing to lose
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Elegant mechanics create interesting dynamic
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> Meet new people is producitive
+							</li>
+							<li>
+								<i class="fa-li fa fa-check"></i>
+								<b></b> I can do something good without any programming
+							</li>
+						</ul>
+					</p>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!-- fine modal -->
 			<div class="subheading mb-3 col-md-5">Hyperspace shoujo</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5 mb-5">
 						<img class="img-fluid rounded" src="img/hyperspace_shoujo_title.png" alt="">
-						<br><br>
-						<div class="clearfix"></div>
-						<a target="blank" href="https://globalgamejam.org/2018/games/hyperspace-shoujo">Download from Ggj site!</a>
 					</div>
 					<div class="col-md-7">
 						<div class="col-md-12 mb-3">
@@ -387,6 +489,15 @@
 								  <b>Concept idea</b> - important role on defining the core mechanic and rules
 								</li>
 							</ul>
+							<div class="col-md-12 mb-3">
+								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCreamy">
+									<i class="fa fa-search-plus"></i><span></span> Achievement
+								</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="https://globalgamejam.org/2018/games/hyperspace-shoujo" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
+									<i class="fa fa-download"></i><span></span> Download from Ggj site!
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -406,7 +517,7 @@
 					</div>
 					<div class="col-md-7">
 						<div class="col-md-12 mb-3">
-							A casual game where you defeat your enemies by launch and retrieving shuriken.
+							A casual game where you defeat your enemies launching and retrieving shuriken.
 						</div>
 						<div class="col-md-12 mb-3">
 							This is a simple two person projects. The Design and programming of this game are in my hands, graphic is taken care by the other.
@@ -469,8 +580,9 @@
 							Pacing analysis of Call of Duty Black cats level. The analysis is made with the cluster method.
 							<br><br>
 							<form action="download_file.php" method="post">
-								<input type="hidden" name="file_code" value="" />
-							</form>
+							<a href="papers\COD_WaW_Black_cats_ENG.pdf" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
+								<i class="fa fa-eye"></i><span></span> Read it!
+							</a>
 						</div>
 					</div>
 				</div>
