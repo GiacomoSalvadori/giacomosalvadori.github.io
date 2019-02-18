@@ -1,3 +1,3 @@
-# This is my webpage
+# This is my personal webpage
 
-A webpage with my resume
+In this page I'm trying to describe myself, my experiences and my passions!
