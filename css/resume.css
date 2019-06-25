@@ -138,6 +138,10 @@ section.resume-section .resume-item .resume-date {
   color: #0101DF !important;
 }
 
+.img-str {
+	width: 50%;
+}
+
 a {
   color: #0101DF;
 }
