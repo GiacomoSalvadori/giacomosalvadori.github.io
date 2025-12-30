@@ -1,1024 +1,1265 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Giacomo Salvadori - Game Designer & Programmer specialized in Unity, Unreal Engine, AI systems, and gameplay design." />
+    <title>Giacomo Salvadori | Game Designer & Programmer</title>
+	<link rel="icon" type="image/png" href="img/profile.jpg" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Giacomo Salvadori">
-    <meta name="google-site-verification" content="ohsOVWQKbuxWa9OcZbX0W1vgHoLP23DELjk6rCreZxw" />
+        :root {
+            --primary: #00f3ff;
+            --secondary: #ff00ff;
+            --accent: #ffff00;
+            --dark: #0a0a0f;
+            --dark-light: #1a1a2e;
+            --text: #e0e0e0;
+        }
 
-    <title>Giacomo Salvadori - Resume</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        /* Animated Background (unchanged) */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+        }
 
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
-    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
 
-    <!-- Custom styles for this template -->
-    <link href="css/resume.min.css" rel="stylesheet">
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-50px); }
+            75% { transform: translateY(-100px) translateX(100px); }
+        }
 
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" href="/img/profile.jpg" />
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
 
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 860px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover { color: var(--dark); }
+        .btn:hover::before { left: 0; }
+
+        .btn-secondary {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        .btn-secondary::before { background: var(--secondary); }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--dark-light);
+            padding: 2rem;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .skill-card:hover::before { opacity: 1; }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Experience Timeline */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        /* ✅ FIX: center the dot on the vertical line (line at x=0; dot centered on it) */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-2rem - 5px); /* = (-timeline padding) - (dotRadius - 1px) */
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .timeline-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        .timeline-item .date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects grid: 3 columns desktop */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--dark-light);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 160px;
+            background: rgba(0, 243, 255, 0.08);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* (unchanged) */
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.95;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-thumb img { transform: scale(1.03); }
+
+        .project-body { padding: 1.5rem; }
+
+        .project-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            opacity: 0.85;
+            font-size: 0.98rem;
+        }
+
+        .project-meta {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            padding: 0.25rem 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text);
+            background: rgba(0, 243, 255, 0.06);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            width: min(980px, 100%);
+            background: var(--dark-light);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .modal-header {
+            padding: 1.5rem 1.5rem 0 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .modal-title { font-size: 1.6rem; color: var(--primary); }
+        .modal-subtitle { opacity: 0.85; margin-top: 0.25rem; }
+
+        .modal-close {
+            background: transparent;
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            color: var(--primary);
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .modal-close:hover { background: rgba(0, 243, 255, 0.12); }
+
+        .modal-body {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 1.5rem;
+        }
+
+        .modal-section {
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .bullets { padding-left: 1.2rem; opacity: 0.9; }
+        .bullets li { margin-bottom: 0.4rem; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            background: rgba(0, 243, 255, 0.06);
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.35s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* (unchanged) */
+        .carousel-slide img {
+            width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center;
+		opacity: 0.95;
+		background: rgba(0,0,0,0.15);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            color: var(--primary);
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .carousel-btn:hover { background: rgba(0, 243, 255, 0.12); }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            padding: 6px 10px;
+            background: rgba(10, 10, 15, 0.55);
+            border: 1px solid rgba(0, 243, 255, 0.22);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(224, 224, 224, 0.35);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            cursor: pointer;
+        }
+        .dot.active { background: var(--primary); }
+
+        .modal-footer {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: var(--dark-light);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            word-break: break-word;
+        }
+        .contact-item a:hover { color: var(--primary); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-light);
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .modal-body { grid-template-columns: 1fr; }
+            .carousel { height: 260px; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.2rem; }
+            section { padding: 4.5rem 1.2rem; }
+
+            .hero { padding: 0 1.2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.2rem; }
+            h2.section-title { font-size: 2.2rem; }
+
+            .mobile-menu-btn { display: block; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-light);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active { display: flex; }
+
+            .skills-grid, .contact-grid, .projects-grid { grid-template-columns: 1fr; }
+
+            .modal { padding: 1rem; }
+            .modal-header { padding: 1.2rem 1.2rem 0 1.2rem; }
+            .modal-body { padding: 1.2rem; }
+            .modal-footer { padding: 0 1.2rem 1.2rem 1.2rem; }
+
+            .btn { padding: 0.9rem 1.4rem; }
+        }
+    </style>
 </head>
 
-<body id="page-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <span class="d-block d-lg-none"><b>MENU</b></span>
-            <span class="d-none d-lg-block">
-                <img class="img-fluid img-profile mx-auto mb-2 rounded-circle" src="img/profile_2.jpeg" alt="">
-            </span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#games">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#education">Education</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#strengths">Strengths</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#papers">Studies</a>
-                </li>
+<body>
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <header>
+        <nav>
+            <div class="logo">GS</div>
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
             </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Giacomo Salvadori</h1>
+            <h2>Game Designer &amp; Programmer</h2>
+            <p>Building gameplay systems and AI for Unity and Unreal, from rapid prototypes to production-ready features.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn">Get in touch</a>
+                <a href="#projects" class="btn btn-secondary">View projects</a>
+            </div>
         </div>
-    </nav>
+    </section>
 
-    <div class="container-fluid p-0">
-
-        <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
-            <div class="my-auto">
-                <h1 class="mb-0">
-                    Giacomo
-                    <span class="text-primary">Salvadori</span>
-                </h1>
-                <div class="subheading mb-5">
-                    Italy · Tuscany · Florence ·
-                    <span class="text-primary">giaco.salvadori@gmail.com</span>
-                </div>
-                <p class="mb-5">
-                    Born in Florence, Italy in October 1990. Graduated from the Università degli Studi di Firenze with a bachelor's degree in Computer Science.
-                    Works as a freelance programmer and game designer with experience in diverse environments, including private game companies, NGOs, academies, and universities.
-                    <br><br>
-                    Driven by enthusiasm and passion for games, with expertise in game design and programming, focusing on AI and combat design.
-                    Outside of work, enjoys spending time in nature and aspires to travel the world by boat.
-                </p>
-                <ul class="list-inline list-social-icons mb-0">
-                    <li class="list-inline-item">
-                        <a target="blank" href="https://www.linkedin.com/in/giacomo-salvadori-3721a8121">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a target="blank" href="https://github.com/GiacomoSalvadori">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- Start experience section> <-->
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
-            <div class="my-auto">
-                <h2 class="mb-5">Experience</h2>
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Game Developer</h3>
-                        <div class="subheading mb-3">Freelance</div>
-                        <p>Experience includes work with two of the most important engines on the market, covering both B2B and B2C game development. Projects range from games for a broad audience to specific applications for customers utilizing AR or VR technologies. Also contributed expertise to Packt Publishing as a reviewer for the book <a href="https://www.packtpub.com/product/unity-artificial-intelligence-programming/9781803238531" target="blank">Unity AI Programming</a>.</p>
-
-                        <h5>C++ Unreal Engine</h5>
-                        <p>Usage of Unreal Engine began in 2019, with a focus on game mechanics and AI.</p>
-                        <ul>
-                            <li>Worked at Stormind Games as an AI programmer</li>
-                            <li>Developed a configurator for a boat manufacturing company, enabling customization of boats using C++ and Blueprints</li>					</li>
-							<li>Unreal Engine courses are taught, focusing on game development using both C++ and Blueprints</li>
-                        </ul>
-
-                        <h5>C# Unity Developer</h5>
-                        <p>Working with Unity since 2017, both as a game designer and programmer for B2C and B2B projects.</p>
-                        <ul>
-                            <li>Technical designer for Football Drama</li>
-							<li>Lead Programmer experience</li>
-                            <li>Developed a game for Amnesty International Italy</li>
-							<li>Developed the first demo of <a href="https://store.steampowered.com/app/2736590/Hexplorando/" target="blank">Hexplorando</a>  for <a href="https://vgwb.org/" target="blank">Video Games Without Borders</a></li>
-							<li>Released a VR app for university course consultations, in collaboration with Whitesock</li>
-                        </ul>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">January 2017 - Present</span>
-                    </div>
-                </div>
-
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Professor</h3>
-                        <div class="subheading mb-3">Event horizon - school of digital art / TheSign - Comics & Arts Academy Firenze</div>
-                        <p>
-                            <div class="vertical">
-                                <h5 style="padding-left: 15px;">August 2019 - Present</h5>
-                                <p style="padding-left: 15px;">
-                                    Facilitating groups of young adults in their collaborative effort to create their initial game as a team. Responsibilities encompass teaching sessions on game design fundamentals, including prototyping and foundational principles. Additionally, providing instruction on Unreal Engine (both Blueprint and C++) and Unity, focusing on AI and technical aspects of game development.
-                                </p>
-                            </div>
-                            <br><br>
-                            <div class="vertical">
-                                </span><h5 style="padding-left: 15px;">January 2018 - July 2019</h5>
-                                <p style="padding-left: 15px;">
-                                    During the academic year 2017-18, the first teaching experience involved assisting a professor in managing four teams consisting of game designers, concept artists, and programmers. Support primarily focused on fostering teamwork to develop a playable video game. Additionally, served as an assistant teacher for a game design course, guiding students in their introduction to the game development field and instructing them on Game Maker, Unity, and Unreal Engine.
-                                </p>
-                            </div>
-                        </p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">January 2018 - Present</span>
-                    </div>
-                </div>
-				
-				<div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Lead Programmer</h3>
-                        <div class="subheading mb-3">Hetalab s.r.l.</div>
-                        <p>
-                            <div class="vertical">
-                                <h5 style="padding-left: 15px;">October 2022 - February 2023</h5>
-								<p style="padding-left: 15px;">
-									<ul>
-										<li>Created interactive VR showrooms using Meta Quest 2</li>
-										<li>Focused on making immersive, virtual environments for product presentation</li>
-										<li>Developed a demo for an NFT museum, showcasing digital artwork in a virtual space</li>
-									</ul>
-								</p>
-                            </div>
-                            <br><br>
-                            <div class="vertical">
-                                <h5 style="padding-left: 15px;">June 2020 - May 2021</h5>
-                                <p style="padding-left: 15px;">
-									<ul>
-										<li>Developed an app for fashion clients to arrange virtual stores</li>
-										<li>Managed runtime loading of 3D models and necessary data for store setup</li>
-										<li>Took full responsibility for Unity development</li>
-										<li>Supervised two juniors: a programmer and a 3D artist</li>
-										<li>Wrote Python scripts for Blender to reduce polygon counts, improving the efficiency and quality of 3D models</li>
-									</ul>
-								</p>
-                            </div>
-                        </p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">June 2020 - February 2023</span>
-                    </div>
-                </div>
-				
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Research Fellowship</h3>
-                        <div class="subheading mb-3">Universit&agrave; degli studi di Siena</div>
-                        <p>
-                            The entire client side of the application was developed using Unity. The application, a room decorator, was built for both VR and AR environments. Data and 3D models were fetched from a remote server and downloaded at runtime. The role involved acting as the technical owner for both applications.
-                        </p>
-                        <ul>
-                            <li>AR development: Utilized the Agora plugin for screen share between devices.</li>
-                            <li>VR development: Utilized Meta Quest 2.</li>
-                            <li>Managed all aspects independently</li>
-                            <li>Defined a data structure shared between the application and the backend system</li>
-                            <li>Synchronized with backend developers</li>
-                        </ul>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">September 2021 - September 2022</span>
-                    </div>
-                </div>
-				
-				<div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">AI Programmer</h3>
-                        <div class="subheading mb-3">Stormind Games</div>
-                        <ul>
-                            <li>Assisted in designing and defining enemy behavior</li>
-                            <li>Implemented NPC behaviors using hierarchical state machines</li>
-                            <li>Managed multiple tasks and worked within an agile methodology</li>
-                            <li>Utilized JIRA, Confluence, and Perforce</li>
-                            <li>Gained experience in an AA team, working on an unannounced game (PC & console)</li>
-                        </ul>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">April 2021 - October 2021</span>
-                    </div>
-                </div>
-				
-				<div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Technical Game Designer</h3>
-                        <div class="subheading mb-3">Open Lab</div>
-                        <ul>
-                            <li>Releasing a new version of an existing game</li>
-                            <li>Working on an existing and released project</li>
-                            <li>Reinvent input for PC and Nintendo Switch</li>
-                            <li>Porting a project from mobile to full-screen</li>
-                            <li>Take care of the porting, I was responsible for all aspects</li>
-							<li>Working with Nintendo dev kit</li>
-							<li>Working on the early stages of Roller Drama, focusing on AI development. Specifically, designing and implementing decision trees entirely in C#</li>
-                        </ul>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">October 2020 - February 2021</span>
-                    </div>
-                </div>
-
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Programmer</h3>
-                        <div class="subheading mb-3">Enegan spa</div>
-                        <p>
-                            Initially, interfaces were created for the new management software to enhance CRM and Back Office efficiency. Following initial front-end development, experience expanded into back-end development, where foundational PL/SQL skills were acquired. Procedures were developed to streamline the billing process, and data migration was executed for the gas segment within the new software, contributing to enhanced Oracle DB proficiency.
-                            <br><br>
-                            Over the last year and a half, participation commenced in the development of a new contract management software alongside senior programmers. This phase also involved implementing a centralized user control system and software monitoring capabilities.
-                        </p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">October 2013 - October 2016</span>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>  <!-- END experience section><-->
-
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="games">
-            <div class="my-auto">
-                <h2 class="mb-5">Projects</h2>
-                <!-- Modal FD -->
-                <div id="modalFootbalDrama" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <ul class="fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Release a new version of a game
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Working on an existing and released project
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Reinvent input for PC and Nintendo Switch
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Porting a project from mobile to full screen
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Take care of the porting, I was responsible of all aspects
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Working with <b>Nintendo</b> dev kit
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Release on <b>Nintendo Switch</b>
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- fine modal -->
-                <div class="subheading mb-3 col-md-5">Football Drama</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/FD_Cover_Art.jpg" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                            <form action="download_file.php" method="post">
-                                <input type="hidden" name="file_code" value="0wz9ZB6Oax" />
-                            </form>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                A narrative game about football where players choose their own narrative. The protagonist is Rocco Galliano, the manager of Calchester, a struggling football team.
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                The game was released for mobile in September 2019, with development on the HD version completed in the last quarter of 2020.
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <ul class="fa-ul">
-                                    <li>
-                                        <i class="fa-li fa fa-code" style="color:#013ADF;"></i>
-                                        <b>Programmer</b> managed input for PC, console and Nintendo Switch
-                                    </li>
-                                    <li>
-                                        <i class="fa-li fa fa-cogs" style="color:#4B610B;"></i>
-                                        <b>Technical designer</b> - Rethink the game in full screen version
-                                    </li>
-                                </ul>
-                                <div class="col-md-12 mb-3">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalFootbalDrama">
-                                        <i class="fa fa-search-plus"></i><span></span> Achievement
-                                    </button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="https://store.steampowered.com/app/876190/Football_Drama/" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                        <i class="fa fa-external-link"></i><span></span> Steam page!
-                                    </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="https://www.nintendo.it/Giochi/Giochi-scaricabili-per-Nintendo-Switch/Football-Drama-1959954.html" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                        <i class="fa fa-external-link"></i><span></span> Nintendo page!
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- Modal Alter -->
-                <div id="modalAlter" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <ul class="fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Work on a game with deadlines
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Developing a solid structure useful to create graphic adventures
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Listening a senior designer
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Creating tools for the designer
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Scripting some sequencies
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Following instructions written in the GDD and TDD
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- fine modal -->
-                <div class="subheading mb-3 col-md-5">Hatesick - Alter in boilerdome</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/Hatesick.png" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                A graphic adventure about hate speech and its consequences, commissioned by Amnesty International Italy.
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                The project involved collaboration with a team of professional game developers, from whom valuable insights into various aspects of the industry were gained.
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <ul class="fa-ul">
-                                    <li>
-                                        <i class="fa-li fa fa-code" style="color:#013ADF;"></i>
-                                        <b>Programmer</b> - Contributed to the development of the core system.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAlter">
-                                    <i class="fa fa-search-plus"></i><span></span> Achievement
-                                </button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="https://www.amnesty.it/hatesick-videogioco/" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-play-circle"></i><span></span> Play it!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- Modal Creamy -->
-                <div id="modalCreamy" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <ul class="fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Create and prototype
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Polishing
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Talking to programmers as designer
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Talking to artists as designer and programmer
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Build a level
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Be positive and patience
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Use of state and observer patterns
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Improve the project with iteration
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Work with milestone
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- fine modal -->
-                <!-- div container -->
-                <!-- start -->
-                <!-- Modal Hyperspace -->
-                <!--
-                <div id="modalHyperspace" class="modal fade">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>
-                            <ul class="fa-ul">
-                                <li>
-                                    <i class="fa-li fa fa-check"></i>
-                                    <b></b> Create a good concept in a few time
-                                </li>
-                                <li>
-                                    <i class="fa-li fa fa-check"></i>
-                                    <b></b> Dare, you have nothing to lose
-                                </li>
-                                <li>
-                                    <i class="fa-li fa fa-check"></i>
-                                    <b></b> Elegant mechanics create interesting dynamic
-                                </li>
-                                <li>
-                                    <i class="fa-li fa fa-check"></i>
-                                    <b></b> Meet new people is productive
-                                </li>
-                                <li>
-                                    <i class="fa-li fa fa-check"></i>
-                                    <b></b> I can do something good without any programming
-                                </li>
-                            </ul>
-                        </p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- fine modal -->
-                <!--
-                <div class="subheading mb-3 col-md-5">Hyperspace shoujo</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/hyperspace_shoujo_title.png" alt="">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                Arcade spaceshooter where you deflect the enemy bullet with a satellite binary system.
-                                You can also generate wave attack when colliding the satellites (joypads required).
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                This game was developed during the Ggj 2018 and rewarded as best game of <a href="http://pisagamejam.org/?p=324">Pisa</a> Game Jam.
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <ul class="fa-ul">
-                                    <li>
-                                      <i class="fa-li fa fa-file-text" style="color:#013ADF;"></i>
-                                      <b>Team manager</b> - managed group during Ggj 2018 in Pisa
-                                    </li>
-                                    <li>
-                                      <i class="fa-li fa fa-lightbulb-o" style="color:#D7DF01;"></i>
-                                      <b>Concept idea</b> - important role on defining the core mechanic and rules
-                                    </li>
-                                </ul>
-                                <div class="col-md-12 mb-3">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalHyperspace">
-                                        <i class="fa fa-search-plus"></i><span></span> Achievement
-                                    </button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="https://globalgamejam.org/2018/games/hyperspace-shoujo" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                        <i class="fa fa-download"></i><span></span> Download from Ggj site!
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- div container -->
-                <!-- end -->
-                <!-- start -->
-                <!-- Modal Cosmion -->
-                <div id="modalCosmion" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">What I have learned</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <ul class="fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Create and iterate an idea by myself
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Experience on mobile devices
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Using Google's <b>Firebase</b> to manage user authentication and data
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Understanding of some aspects like monetization and user retention
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- fine modal -->
-                <div class="subheading mb-3 col-md-5">Cosmion</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/cosmion_screen.jpg" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                            <form action="download_file.php" method="post">
-                                <input type="hidden" name="file_code" value="0wz9ZB6Oax" />
-                            </form>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                A casual game which the aim is collecting celestial bodies in the universe.
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                This is a self-made project in terms of game design and programming. The game is available for Android smartphone.
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <ul class="fa-ul">
-                                    <li>
-                                        <i class="fa-li fa fa-code" style="color:#013ADF;"></i>
-                                        <b>Programmer</b> - I am the dev owner of the project
-                                    </li>
-                                    <li>
-                                        <i class="fa-li fa fa-lightbulb-o" style="color:#D7DF01;"></i>
-                                        <b>Concept idea</b> - I make all design choices.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCosmion">
-                                    <i class="fa fa-search-plus"></i><span></span> Achievement
-                                </button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="https://play.google.com/store/apps/details?id=com.sugnigames.cosmiongame" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-android"></i><span></span> Download for Android!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- end -->
-            </div>
-        </section>
-
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
-            <div class="my-auto">
-                <h2 class="mb-5">Education</h2>
-
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Event Horizon - school of digital art</h3>
-                        <div class="subheading mb-3">Game design</div>
-                        <div>
-                            <p>
-                                During this period, foundational game design principles were learned and initial games were developed. Key learnings included:
-                            </p>
-                            <ul>
-                                <li>Utilization of Game Maker, Unity, and Unreal Engine</li>
-                                <li>Narrative design techniques</li>
-                                <li>Integration of technical and design aspects to evolve into a <b>technical designer</b></li>
-                                <li>Idea development strategies</li>
-                                <li>Application of Occam's razor principle to simplify and refine concepts</li>
-                                <li>Emphasis on project completion as a critical aspect</li>
-                                <li>Creation of Game Design Documents (GDD)</li>
-                                <li>Preparation and delivery of presentations on personal ideas and projects</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">November 2016 - June 2019</span>
-                    </div>
-                </div>
-                <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div class="resume-content mr-auto">
-                        <h3 class="mb-0">Universit&agrave; degli studi di Firenze</h3>
-                        <div class="subheading mb-3">Computer Science - Bachelor's Degree</div>
-                        <div>
-                            <p>The main focuses of the studies included:</p>
-                            <p>
-                                <ul>
-                                    <li>Object-Oriented Programming and fundamental design patterns</li>
-                                    <li>Concurrent programming concepts</li>
-                                    <li>Relational database principles and modeling</li>
-                                    <li>Probability and statistics</li>
-                                    <li>Artificial intelligence, encompassing search algorithms and neural networks</li>
-                                    <li>Mathematical analysis</li>
-                                    <li>Linear Algebra</li>
-                                    <li>Discrete and logical mathematics</li>
-                                    <li>Classical physics</li>
-                                    <li>Web page and app development (thesis topic)</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">September 2009 - July 2013</span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="skills">
-            <div class="my-auto">
-                <h2 class="mb-5">Skills</h2>
-
-                <div class="subheading mb-3">Tools</div>
-                <ul class="list-inline list-icons">
-                    <li class="list-inline-item">
-                        <div class="unreal-icon" title="unreal engine"></div>
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="devicons devicons-unity_small" title="unity"></i>
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="devicons devicons-git" title="git"></i>
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="devicons devicons-database" title="Oracle PL/SQL"></i>
-                    </li>
-                </ul>
-
-                <div class="subheading mb-3">How I spend my time</div>
-                <!-- Modal Languages -->
-                <div id="modalLanguages" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">Languages used</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <ul class="fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> C, C++ and C#
-                                        </li>
-                                        <!--
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Game Maker Language
-                                        </li>
-                                        -->
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Blueprint
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Java
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Php
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> PL/Sql
-                                        </li>
-                                        <!--
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> HTML/CSS
-                                        </li>
-                                        -->
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Javascript
-                                        </li>
-                                        <li>
-                                            <i class="fa-li fa fa-check"></i>
-                                            <b></b> Matlab
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- fine modal -->
-                <div class="col-md-12 mb-3">
-                    <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3-2IPzK5h5SfAd1uzVkhpGYTHW74WCZZ3sWBnciYaGhHBV1Ta19rCzH3C5rJAHUHLWzSEjSjcZu6_/pubchart?oid=130625852&amp;format=interactive"></iframe>
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalLanguages">
-                        <i class="fa fa-search-plus"></i><span></span> Languages used
-                    </button>
-                </div>
-
-                <div class="subheading mb-3">Personal skills</div>
-                <ul class="fa-ul mb-0">
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        <b>Programming</b> - Demonstrated technical proficiency with game engines
-                    </li>
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        <b>Concept base</b> - Active participation and collaboration during the brainstorming phase and initial project concept.
-                    </li>
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        <b>Team management</b> - Strong skills in risk evaluation and problem-solving
-                    </li>
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        <b>Game design</b> - Proficient in defining game rules and mechanics. Familiarity <a href="https://www.nevigo.com/en/articydraft/overview/" target="blank">Articy:Draft</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="strengths">
-            <div class="my-auto">
-                <h2 class="mb-5">Strengths</h2>
-                <p>
-                    Three strengths include
-                </p>
-                <p>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <i class="fa-li fa fa-check"></i>
-                            <b>Good Listening</b>
-                        </li>
-                        <li>
-                            <i class="fa-li fa fa-check"></i>
-                            <b>Effective teamwork capabilities</b>
-                        </li>
-                        <li>
-                            <i class="fa-li fa fa-check"></i>
-                            <b>Proficiency in problem-solving</b>
-                        </li>
-                    </ul>
-                </p>
-                <p>
-                    <img class="" src="img/strengths.png" width="30%" alt="">
-                </p>
-            </div>
-        </section>
-
-        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="papers">
-            <div class="my-auto">
-                <h2 class="mb-5">Studies</h2>
-                <!-- start -->
-                <div class="subheading mb-3 col-md-5">Strand Game, trying to understand (and explain)</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/Deat_Stranding_Mountain.jpeg" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                Trying to understand and shed light on the Kojima’s concept of strand game.
-                                <br><br>
-                                <a href="https://www.gamedeveloper.com/design/strand-game-trying-to-understand-and-explain-" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-eye"></i><span></span> Read it on Gamasutra!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- end -->
-                <!-- start -->
-                <div class="subheading mb-3 col-md-5">Procedural level lab</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/grid_calculator.png" alt="">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                A laboratory about level construction with Hilbert curve. This is a little project made with Unity, it is composed of two scenes.
-                                <br><br>
-                                <a href="https://github.com/GiacomoSalvadori/ProceduralLevel_U3D" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-eye"></i><span></span> Go to GitHub!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- end -->
-                <!-- start -->
-                <div class="subheading mb-3 col-md-5">AI Notes</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/UE5-characters.png" alt="">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                Notes on the <i>AI development journey</i>, co-authored with Kazimieras Mikelis
-                                <br><br>
-                                <a href="https://mikelis.net/designing-building-testing-and-shipping-aaa-style-video-game-ai/" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-eye"></i><span></span> Read it!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- div container -->
-                <!-- end -->
-                <!-- start -->
-				<!--
-                <div class="subheading mb-3 col-md-5">UE4 - TPS Studies</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/UE4_TPS.png" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                Engaging with C++ in UE4 for a personal project. Starting from scratch, techniques were acquired to implement mechanics and develop AI. For more details, please refer to the README file in the GitHub repository.
-                                <br><br>
-                                <a href="https://github.com/GiacomoSalvadori/UnrealStudies" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-eye"></i><span></span> Go to GitHub!
-                                </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="https://youtu.be/pvggDGpotRY" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-external-link"></i><span></span> Watch the results!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				-->
-				<!-- div container -->
-                <!-- end -->
-                <!-- start -->
-                <div class="subheading mb-3 col-md-5">FPS level pacing analysis</div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 mb-5">
-                            <img class="img-fluid rounded" src="img/chart_cod_waw.png" alt="">
-                            <br><br>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-12 mb-3">
-                                Pacing analysis of Call of Duty Black cats level. The analysis is made with the cluster method.
-                                <br><br>
-                                <a href="papers\COD_WaW_Black_cats_ENG.pdf" target="blank" class="btn btn-outline-primary" role="button" aria-pressed="true">
-                                    <i class="fa fa-eye"></i><span></span> Read it!
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- div container -->
-                <!-- end -->
-            </div>
-        </section>
-
-        <div>
-            <p style="font-size: 10px;">
-                Theme by David Miller - GitHub davidtmiller
+    <section id="about">
+        <h2 class="section-title">About</h2>
+        <div style="max-width: 860px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Born in Florence in October 1990, I’m a game designer and programmer with a Computer Science degree from the University of Florence.
             </p>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                I’ve worked across studios, universities, and client projects, specializing in technical game design, gameplay programming, and AI systems—especially combat and character behaviors.
+            </p>
+            <p style="font-size: 1.1rem;">
+                I contributed as a technical reviewer for Packt Publishing on <em>Unity Artificial Intelligence Programming</em>, and I work daily with Unity and Unreal Engine on both B2B and B2C projects, including AR and VR experiences.
+            </p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>🎮 Unreal Engine</h3>
+                <p>Gameplay systems and AI development since 2019, using Blueprints and C++ to ship performant, scalable features.</p>
+            </div>
+            <div class="skill-card">
+                <h3>🎯 Unity</h3>
+                <p>Hands-on experience since 2017 across B2C and B2B: VR/AR apps, gameplay systems, AI, and reusable architectures.</p>
+            </div>
+            <div class="skill-card">
+                <h3>🤖 AI Development</h3>
+                <p>Game AI systems, behavior logic, navigation, and iteration-friendly debugging tools for fast tuning and collaboration.</p>
+            </div>
+            <div class="skill-card">
+                <h3>⚔️ Combat Design</h3>
+                <p>Designing and tuning combat that feels responsive, readable, and balanced—across multiple genres and control schemes.</p>
+            </div>
+            <div class="skill-card">
+                <h3>📐 Technical Game Design</h3>
+                <p>Rapid prototyping, balancing, documentation, and data-driven workflows that connect design intent to implementation.</p>
+            </div>
+            <div class="skill-card">
+                <h3>👨‍🏫 Teaching</h3>
+                <p>Game design and development education: mentoring students and juniors with production-ready workflows and clear feedback loops.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ TIMELINE UPDATED (copy refined) -->
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Freelance Game Designer &amp; Programmer</h3>
+                <div class="date">2017 – Present</div>
+                <p>Unity/Unreal development across B2B and B2C: XR (VR/AR), gameplay systems, AI behaviors, and technical game design, collaborating with multidisciplinary teams from concept to delivery.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Game Design Teacher – TheSign (Comics &amp; Arts Academy, Florence)</h3>
+                <div class="date">2017 – Present</div>
+                <p>Teaching game design, prototyping, Unity, and Unreal (Blueprint &amp; C++). Mentoring students and junior developers with production-ready workflows, iteration-first pipelines, and hands-on project reviews.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Technical Reviewer – Packt Publishing</h3>
+                <div class="date">2023</div>
+                <p>Technical review of <em>Unity Artificial Intelligence Programming</em>, validating code accuracy and improving clarity to maximize practical value for AI-focused developers.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Research Fellowship – University of Siena</h3>
+                <div class="date">Sep 2021 – Sep 2022</div>
+                <p>R&amp;D on XR applications and interactive prototypes, including the Colux VR/AR project (Unity). Focus on data-driven architecture, reliability, and a clean pipeline for fast iteration.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>AI Programmer – Stormind Games</h3>
+                <div class="date">Apr 2021 – Oct 2021</div>
+                <p>Contributed to an unannounced PC/console title by implementing enemy behaviors and AI logic (hierarchical state machines) within an agile, production team environment.</p>
+            </div>
+			
+			<div class="timeline-item">
+                <h3>Main Programmer – Hetalab</h3>
+                <div class="date">Apr 2020 – Apr 2021</div>
+                <p>Led development as main programmer on interactive and XR projects, owning core architecture, gameplay/interaction systems, and technical pipelines from prototype to delivery.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Technical Game Designer – Open Lab</h3>
+                <div class="date">Oct 2020 – Feb 2021</div>
+                <p>Worked on <em>Football Drama</em> (HD/Switch), supporting gameplay and technical design: porting constraints, input adaptation, UI/UX adjustments, and tooling support.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Software Developer – Enegan S.p.A.</h3>
+                <div class="date">2013 – 2016</div>
+                <p>Front-end and back-end development for CRM software. PL/SQL database work, data migration, and process optimization to improve reliability and internal workflows.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>Email</h3>
+                <a href="mailto:giaco.salvadori@gmail.com">giaco.salvadori@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <h3>LinkedIn</h3>
+                <a href="https://www.linkedin.com/in/giacomo-salvadori-3721a8121" target="_blank" rel="noopener">linkedin.com/in/...</a>
+            </div>
+            <div class="contact-item">
+                <h3>GitHub</h3>
+                <a href="https://github.com/giacomosalvadori" target="_blank" rel="noopener">github.com/giacomosalvadori</a>
+            </div>
+            <div class="contact-item">
+                <h3>Portfolio</h3>
+                <a href="#projects">Browse projects</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Giacomo Salvadori. Game Designer &amp; Programmer based in Florence, Italy.</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal" id="projectModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="modalTitle"></div>
+                    <div class="modal-subtitle" id="modalSubtitle"></div>
+                </div>
+                <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-section">
+                    <ul class="bullets" id="modalBullets"></ul>
+                    <div style="height: 1rem;"></div>
+                    <div class="tech-list" id="modalTech"></div>
+                </div>
+
+                <div class="modal-section">
+                    <div style="color: var(--secondary); margin-bottom: 0.75rem; font-size: 1.05rem;">Gallery</div>
+                    <div class="carousel" id="modalCarousel">
+                        <div class="carousel-track" id="carouselTrack"></div>
+                        <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous">‹</button>
+                        <button class="carousel-btn next" id="carouselNext" aria-label="Next">›</button>
+                        <div class="carousel-dots" id="carouselDots"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn btn-secondary" id="modalLink" href="#" target="_blank" rel="noopener" style="display:none;">Project link</a>
+                <button class="btn" id="modalCloseBtn2">Close</button>
+            </div>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Background particles (unchanged)
+        function createParticles() {
+            const bg = document.getElementById('bgAnimation');
+            const particleCount = 50;
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                bg.appendChild(particle);
+            }
+        }
 
-    <!-- Custom scripts for this template -->
-    <script src="js/resume.js"></script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
 
+        // Mobile menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
+        // ===== Dynamic image helpers =====
+        const IMG_ROOT = "img"; // folder under root: /img
+
+        function slugify(s) {
+            return (s || "")
+                .toLowerCase()
+                .replace(/&/g, "and")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, "");
+        }
+
+        function fileExists(url) {
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+            });
+        }
+
+        async function getProjectImages(slug, maxTry = 20) {
+            const found = [];
+            for (let i = 1; i <= maxTry; i++) {
+                const urlJpg = `${IMG_ROOT}/${slug}/${slug}-${i}.jpg`;
+                const urlPng = `${IMG_ROOT}/${slug}/${slug}-${i}.png`;
+                const okJpg = await fileExists(urlJpg);
+                if (okJpg) { found.push(urlJpg); continue; }
+                const okPng = await fileExists(urlPng);
+                if (okPng) { found.push(urlPng); continue; }
+            }
+            return found;
+        }
+
+        function placeholderPreview(seed) {
+            const s = encodeURIComponent(seed || "project");
+            return `https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1400&q=70&sig=${s.length}`;
+        }
+
+        // ===== Projects data (12) =====
+        const projects = [
+            {
+                title: "FITT",
+                slug: "fitt",
+                subtitle: "Unreal VR Multiplayer Museum Experience",
+                description: "An immersive VR experience that presents the client’s history and philosophy as an interactive museum, designed for multiplayer sessions.",
+                bullets: [
+                    "Designed an explorable VR museum featuring videos, photos, and animated content",
+                    "Implemented client/server logic with an authoritative server setup",
+                    "Built and maintained a headless server build for multiplayer sessions"
+                ],
+                tech: ["Unreal Engine", "Meta Quest 2/3", "VR", "Authoritative Server", "Client Build", "Server Build"],
+                link: ""
+            },
+            {
+                title: "Colux",
+                slug: "colux",
+                subtitle: "Room Decorator for VR & AR",
+                description: "A Unity-based room decorator for VR and AR, supporting runtime downloads of data and 3D models from a remote backend.",
+                bullets: [
+                    "Developed the full client-side app for both VR and AR",
+                    "Defined shared data structures and synced with backend developers",
+                    "Implemented multiplayer VR and device screen sharing via Agora"
+                ],
+                tech: ["Unity", "C#", "Meta Quest", "VR", "Agora Plugin", "AR Foundation", "AR"],
+                link: ""
+            },
+            {
+                title: "XRTemplate",
+                slug: "xrtemplate",
+                subtitle: "Reusable XR Template",
+                description: "A reusable Unity XR template to place and visualize 3D models in AR and VR, built for fast adaptation across client projects.",
+                bullets: [
+                    "Built reusable interactions and tools for quick customization",
+                    "Created a flexible structure for multiple XR scenarios",
+                    "Focused on clean iteration workflows across projects"
+                ],
+                tech: ["Unity", "C#", "Meta Quest 2/3", "VR", "AR"],
+                link: ""
+            },
+            {
+                title: "Composer",
+                slug: "composer",
+                subtitle: "Virtual Store Composer (MVP)",
+                description: "An MVP that lets fashion clients build and arrange virtual stores, with runtime asset loading and tools to speed up setup and iteration.",
+                bullets: [
+                    "Owned Unity development end-to-end for the MVP",
+                    "Mentored two juniors (programmer + 3D artist) and coordinated production",
+                    "Wrote Blender Python scripts to reduce polycount and improve 3D efficiency"
+                ],
+                tech: ["Unity", "C#", "Blender", "Python", "Android", "iOS"],
+                link: ""
+            },
+            {
+                title: "Boat Composer",
+                slug: "boat-composer",
+                subtitle: "Boat Configurator",
+                description: "A boat configurator enabling deep customization through Unreal C++ and Blueprints, including editor tooling to support efficient content setup.",
+                bullets: [
+                    "Implemented customization features using C++ and Blueprints",
+                    "Created editor tools to speed up Blueprint and content workflows",
+                    "Worked on performance-minded pipelines for interactive configuration"
+                ],
+                tech: ["Unreal Engine", "C++", "Blueprint"],
+                link: ""
+            },
+            {
+                title: "Football Drama (HD / Switch)",
+                slug: "football-drama",
+                subtitle: "Technical Game Design + Programming",
+                description: "Porting and adaptation from mobile to full-screen platforms (PC and Nintendo Switch), with input/UX rework and tooling support.",
+                bullets: [
+                    "Reworked input systems for PC and Nintendo Switch",
+                    "Adapted UI/UX from mobile to full-screen layouts",
+                    "Contributed to early Roller Drama AI by designing decision trees in C#"
+                ],
+                tech: ["Unity", "C#", "Nintendo Dev Kit (Switch)"],
+                link: ""
+            },
+            {
+                title: "Unannounced Game (Stormind Games)",
+                slug: "stormind-unannounced",
+                subtitle: "AA Team – AI & Behaviors",
+                description: "Contributed to enemy AI design and implementation in an AA team environment, using production tools and agile workflows.",
+                bullets: [
+                    "Designed and implemented NPC behaviors with hierarchical state machines",
+                    "Delivered features and fixes within an agile production pipeline",
+                    "Worked with JIRA, Confluence, and Perforce in a studio environment"
+                ],
+                tech: ["Unreal Engine", "AI", "Behaviour Tree", "FSM", "PC", "Console"],
+                link: ""
+            },
+            {
+                title: "Hexplorando",
+                slug: "hexplorando",
+                subtitle: "First Demo (Video Games Without Borders)",
+                description: "Built the first playable demo, focusing on the core gameplay loop, solid project structure, and fast iteration.",
+                bullets: [
+                    "Delivered a first playable demo with a clear MVP scope",
+                    "Implemented core mechanics and supporting systems",
+                    "Improved iteration speed through clean structure and tooling"
+                ],
+                tech: ["Unity", "C#", "PC"],
+                link: ""
+            },
+            {
+                title: "Hatesick",
+                slug: "hatesick",
+                subtitle: "Graphic Adventure (Amnesty International Italy)",
+                description: "A point-and-click adventure about hate speech and its consequences, built with reusable systems and progression gating.",
+                bullets: [
+                    "Developed reusable point-and-click adventure systems",
+                    "Implemented gating and progression logic to drive narrative flow",
+                    "Collaborated with a multidisciplinary team following industry best practices"
+                ],
+                tech: ["Unity", "C#", "PC"],
+                link: ""
+            },
+            {
+                title: "Merge and Puzzles",
+                slug: "merge-and-puzzles",
+                subtitle: "Match-3 + Merge Mobile Game",
+                description: "Designed and developed data-driven gameplay systems for a match-3/merge mobile game, including progression and monetization support.",
+                bullets: [
+                    "Implemented gameplay systems and data for enemies, moves, and progression",
+                    "Built data-driven content to support balancing and rapid iteration",
+                    "Supported monetization features such as in-app purchases"
+                ],
+                tech: ["Unity", "C#"],
+                link: ""
+            },
+            {
+                title: "Cosmion",
+                slug: "cosmion",
+                subtitle: "Self-made Casual Android Game",
+                description: "A solo project: designed and developed a casual game about collecting celestial bodies, released on Android.",
+                bullets: [
+                    "Owned end-to-end development (design + programming)",
+                    "Integrated Firebase services",
+                    "Published and maintained the Android build"
+                ],
+                tech: ["Unity", "C#", "Firebase", "Mobile", "Android"],
+                link: ""
+            },
+            {
+                title: "Repearth",
+                slug: "repearth",
+                subtitle: "Game Jam (2021)",
+                description: "A one-dimensional game where you play as a volcano restoring nature by destroying parasitic threats—built in a fast-paced jam environment.",
+                bullets: [
+                    "Built a complete prototype under tight time constraints",
+                    "Focused on readable feedback and punchy moment-to-moment gameplay",
+                    "Delivered a mobile-ready build"
+                ],
+                tech: ["Unity", "C#", "Mobile", "Android"],
+                link: ""
+            }
+        ];
+
+        // ===== Render projects grid =====
+        const projectsGrid = document.getElementById('projectsGrid');
+
+        function renderProjects() {
+            projectsGrid.innerHTML = projects.map((p, idx) => {
+                const seed = p.slug || slugify(p.title);
+                const previewFallback = placeholderPreview(seed);
+                const previewLocalJpg = `${IMG_ROOT}/${seed}/${seed}-1.jpg`;
+                const previewLocalPng = `${IMG_ROOT}/${seed}/${seed}-1.png`;
+
+                return `
+                <div class="project-card" data-index="${idx}">
+                    <div class="project-thumb">
+                        <img
+                            src="${previewLocalJpg}"
+                            alt="${p.title}"
+                            onerror="this.onerror=null; this.src='${previewLocalPng}'; this.onerror=function(){this.onerror=null; this.src='${previewFallback}';};"
+                        />
+                    </div>
+                    <div class="project-body">
+                        <div class="project-title">${p.title}</div>
+                        <div class="project-desc">${p.description}</div>
+                        <div class="project-meta">
+                            ${(p.tech || []).slice(0, 6).map(t => `<span class="chip">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => openProjectModal(parseInt(card.dataset.index, 10)));
+            });
+        }
+
+        // ===== Modal + Carousel logic =====
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalBullets = document.getElementById('modalBullets');
+        const modalTech = document.getElementById('modalTech');
+        const modalLink = document.getElementById('modalLink');
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const carouselPrev = document.getElementById('carouselPrev');
+        const carouselNext = document.getElementById('carouselNext');
+        const carouselDots = document.getElementById('carouselDots');
+
+        let currentProjectIndex = 0;
+        let currentSlide = 0;
+
+        function setCarousel(images) {
+            currentSlide = 0;
+
+            if (!images || images.length === 0) {
+                images = [placeholderPreview(projects[currentProjectIndex].slug || projects[currentProjectIndex].title)];
+            }
+
+            carouselTrack.innerHTML = images.map(src => `
+                <div class="carousel-slide">
+                    <img src="${src}" alt="" />
+                </div>
+            `).join('');
+
+            carouselDots.innerHTML = images.map((_, i) => `
+                <div class="dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></div>
+            `).join('');
+
+            carouselDots.querySelectorAll('.dot').forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const i = parseInt(dot.dataset.dot, 10);
+                    goToSlide(i);
+                });
+            });
+
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const project = projects[currentProjectIndex];
+            const total = Math.max(1, (project._images || []).length);
+
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            carouselDots.querySelectorAll('.dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentSlide);
+            });
+
+            carouselPrev.style.opacity = total <= 1 ? '0.3' : '1';
+            carouselNext.style.opacity = total <= 1 ? '0.3' : '1';
+        }
+
+        function goToSlide(i) {
+            const total = (projects[currentProjectIndex]._images || []).length;
+            if (total <= 1) { currentSlide = 0; updateCarousel(); return; }
+            currentSlide = (i + total) % total;
+            updateCarousel();
+        }
+
+        async function openProjectModal(index) {
+            currentProjectIndex = index;
+            const p = projects[index];
+
+            modalTitle.textContent = p.title;
+            modalSubtitle.textContent = p.subtitle || '';
+
+            const bullets = (p.bullets && p.bullets.length)
+                ? p.bullets
+                : [
+                    "Built a solid gameplay/technical foundation and iterated quickly.",
+                    "Improved pipeline, ownership, and delivery in a production context.",
+                    "Focused on maintainable systems and clear collaboration."
+                ];
+
+            modalBullets.innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
+            modalTech.innerHTML = (p.tech || []).map(t => `<span class="chip">${t}</span>`).join('');
+
+            if (p.link && p.link.trim().length > 0) {
+                modalLink.style.display = 'inline-block';
+                modalLink.href = p.link;
+            } else {
+                modalLink.style.display = 'none';
+                modalLink.href = '#';
+            }
+
+            const slug = p.slug || slugify(p.title);
+            const imgs = await getProjectImages(slug, 20);
+
+            p._images = imgs.length ? imgs : [placeholderPreview(slug)];
+            setCarousel(p._images);
+
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalCloseBtn').addEventListener('click', closeProjectModal);
+        document.getElementById('modalCloseBtn2').addEventListener('click', closeProjectModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeProjectModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeProjectModal();
+        });
+
+        carouselPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+        carouselNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        // Scroll reveal
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        function observeBaseElements() {
+            document.querySelectorAll('.skill-card, .timeline-item, .contact-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        function observeProjectCards() {
+            document.querySelectorAll('.project-card').forEach(el => {
+                if (el.dataset.observed) return;
+
+                el.dataset.observed = 'true';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+                observer.observe(el);
+            });
+        }
+
+        const projectsObserverHook = new MutationObserver(() => {
+            document.querySelectorAll('.project-card').forEach(el => {
+                if (!el.dataset.observed) {
+                    el.dataset.observed = '1';
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(el);
+                }
+            });
+        });
+
+        window.addEventListener('load', async () => {
+            createParticles();
+            observeBaseElements();
+
+            projectsObserverHook.observe(document.getElementById('projectsGrid'), { childList: true });
+            renderProjects();
+        });
+    </script>
 </body>
-
 </html>
