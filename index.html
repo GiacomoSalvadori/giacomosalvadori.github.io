@@ -1177,7 +1177,7 @@
             }
 
             const slug = p.slug || slugify(p.title);
-            const imgs = await getProjectImages(slug, 20);
+            const imgs = await getProjectImages(slug, 7);
 
             p._images = imgs.length ? imgs : [placeholderPreview(slug)];
             setCarousel(p._images);
