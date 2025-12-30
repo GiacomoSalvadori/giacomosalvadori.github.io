@@ -817,449 +817,399 @@
     </div>
 
     <script>
-        // Background particles (unchanged)
-        function createParticles() {
-            const bg = document.getElementById('bgAnimation');
-            const particleCount = 50;
+/* =========================
+   BACKGROUND
+========================= */
+function createParticles() {
+    const bg = document.getElementById('bgAnimation');
+    const count = 50;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 15 + 's';
+        p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        bg.appendChild(p);
+    }
+}
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                bg.appendChild(particle);
-            }
-        }
+/* =========================
+   SMOOTH SCROLL + MENU
+========================= */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+}
+function closeMenu() {
+    document.getElementById('navLinks').classList.remove('active');
+}
 
-        // Mobile menu
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        }
-        function closeMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.remove('active');
-        }
+/* =========================
+   SCROLL REVEAL (STABILE)
+========================= */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+});
 
-        // ===== Dynamic image helpers =====
-        const IMG_ROOT = "img"; // folder under root: /img
+function observe(selector) {
+    document.querySelectorAll(selector).forEach(el => {
+        if (el.dataset.reveal) return;
+        el.dataset.reveal = '1';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+}
 
-        function slugify(s) {
-            return (s || "")
-                .toLowerCase()
-                .replace(/&/g, "and")
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/(^-|-$)/g, "");
-        }
+/* =========================
+   PROJECT DATA (SOLO images AGGIUNTO)
+========================= */
+const IMG_PLACEHOLDER = "img/placeholder.webp";
 
-        function fileExists(url) {
-            return new Promise(resolve => {
-                const img = new Image();
-                img.onload = () => resolve(true);
-                img.onerror = () => resolve(false);
-                img.src = url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
-            });
-        }
+const projects = [
+    {
+        title: "FITT",
+        slug: "fitt",
+        subtitle: "Unreal VR Multiplayer Museum Experience",
+		description: "Immersive VR world that presents the client's history and philosophy as an interactive museum with multiplayer sessions.",
+        images: [
+			"img/fitt/fitt-1.jpg",
+			"img/fitt/fitt-2.jpg",
+			"img/fitt/fitt-3.jpg",
+			"img/fitt/fitt-4.jpg",
+			"img/fitt/fitt-5.jpg",
+			"img/fitt/fitt-6.jpg"
+		  ],
+        bullets: [
+            "Designed an explorable VR museum featuring videos, photos, and animated content",
+            "Implemented client/server logic with an authoritative server setup",
+            "Built and maintained a headless server build for multiplayer sessions"
+        ],
+        tech: ["Unreal Engine", "Meta Quest 2/3", "VR", "Authoritative Server", "Client Build", "Server Build"],
+        link: ""
+    },
+    {
+        title: "Colux",
+        slug: "colux",
+        subtitle: "Room Decorator for VR & AR",
+		description: "Unity-based room decorator app for VR and AR with runtime downloads of data and 3D models from a remote backend.",
+        images: [
+			"img/colux/colux-1.png",
+			"img/colux/colux-2.png",],
+        bullets: [
+            "Developed the full client-side app for both VR and AR",
+            "Defined shared data structures and synced with backend developers",
+            "Implemented multiplayer VR and device screen sharing via Agora"
+        ],
+        tech: ["Unity", "C#", "Meta Quest", "VR", "Agora Plugin", "AR Foundation", "AR"],
+        link: ""
+    },
+    {
+        title: "XRTemplate",
+        slug: "xrtemplate",
+        subtitle: "Reusable XR Template",
+		description: "Customizable Unity XR template to place and visualize 3D models in AR and VR, built for reuse across multiple client contexts.",
+        images: ["img/xrtemplate/xrtemplate-1.png"
+		],
+        bullets: [
+            "Built reusable interactions and tools for quick customization",
+            "Created a flexible structure for multiple XR scenarios",
+            "Focused on clean iteration workflows across projects"
+        ],
+        tech: ["Unity", "C#", "Meta Quest 2/3", "VR", "AR"],
+        link: ""
+    },
+    {
+        title: "Composer",
+        slug: "composer",
+        subtitle: "Virtual Store Composer (MVP)",
+		description: "App for fashion clients to build and arrange virtual stores, with runtime asset loading and tools to streamline the setup workflow.",
+        images: [
+		"img/composer/composer-1.jpg"],
+        bullets: [
+            "Owned Unity development end-to-end for the MVP",
+            "Mentored two juniors (programmer + 3D artist) and coordinated production",
+            "Wrote Blender Python scripts to reduce polycount and improve 3D efficiency"
+        ],
+        tech: ["Unity", "C#", "Blender", "Python", "Android", "iOS"],
+        link: ""
+    },
+    {
+        title: "Boat Composer",
+        slug: "boat-composer",
+        subtitle: "Boat Configurator",
+		description: "Configurator for a boat manufacturer, enabling deep customization through Unreal C++ and Blueprints, with editor tooling support.",
+        images: ["img/boat-composer/boat-composer-1.png"],
+        bullets: [
+            "Implemented customization features using C++ and Blueprints",
+            "Created editor tools to speed up Blueprint and content workflows",
+            "Worked on performance-minded pipelines for interactive configuration"
+        ],
+        tech: ["Unreal Engine", "C++", "Blueprint"],
+        link: ""
+    },
+    {
+        title: "Football Drama (HD / Switch)",
+        slug: "football-drama",
+        subtitle: "Technical Game Design",
+		description: "Porting and adaptation from mobile to full-screen platforms, including PC and Nintendo Switch, with input/UX rework and tooling support.",
+        images: ["img/football-drama/football-drama-1.jpg"],
+        bullets: [
+            "Reworked input systems for PC and Nintendo Switch",
+            "Adapted UI/UX from mobile to full-screen layouts",
+            "Contributed to early Roller Drama AI by designing decision trees in C#"
+        ],
+        tech: ["Unity", "C#", "Nintendo Dev Kit (Switch)"],
+        link: ""
+    },
+    {
+        title: "Unannounced Game (Stormind Games)",
+        slug: "stormind-unannounced",
+        subtitle: "AA Team – AI & Behaviors",
+		description: "Supported enemy AI design and implementation in an AA team environment using agile workflows and production tools.",
+        images: ["img/stormind-unannounced/stormind-unannounced-1.png"],
+        bullets: [
+            "Designed and implemented NPC behaviors with hierarchical state machines",
+            "Delivered features and fixes within an agile production pipeline",
+            "Worked with JIRA, Confluence, and Perforce in a studio environment"
+        ],
+        tech: ["Unreal Engine", "AI", "Behaviour Tree", "FSM", "PC", "Console"],
+        link: ""
+    },
+    {
+        title: "Hexplorando",
+        slug: "hexplorando",
+        subtitle: "First Demo (Video Games Without Borders)",
+		description: "Built the first playable demo, focusing on core gameplay loop, structure, and fast iteration.",
+        images: ["img/hexplorando/hexplorando-1.jpg",
+			"img/hexplorando/hexplorando-2.jpg",
+			"img/hexplorando/hexplorando-3.jpg"],
+        bullets: [
+            "Delivered a first playable demo with a clear MVP scope",
+            "Implemented core mechanics and supporting systems",
+            "Improved iteration speed through clean structure and tooling"
+        ],
+        tech: ["Unity", "C#", "PC"],
+        link: ""
+    },
+    {
+        title: "Hatesick",
+        slug: "hatesick",
+        subtitle: "Graphic Adventure (Amnesty International Italy)",
+		description: "Point-and-click adventure about hate speech and its consequences, built with reusable systems and progression gating.",
+        images: ["img/hatesick/hatesick-1.png",
+			"img/hatesick/hatesick-2.png"],
+        bullets: [
+            "Developed reusable point-and-click adventure systems",
+            "Implemented gating and progression logic to drive narrative flow",
+            "Collaborated with a multidisciplinary team following industry best practices"
+        ],
+        tech: ["Unity", "C#", "PC"],
+        link: ""
+    },
+    {
+        title: "Merge and Puzzles",
+        slug: "merge-and-puzzles",
+        subtitle: "Match-3 + Merge Mobile Game",
+		description: "Designed and developed gameplay systems and data-driven content for a mobile match-3/merge game with IAP.",
+        images: ["img/merge-and-puzzles/merge-and-puzzles-1.png",
+			"img/merge-and-puzzles/merge-and-puzzles-2.png",
+			"img/merge-and-puzzles/merge-and-puzzles-3.png"
+			],
+        bullets: [
+            "Implemented gameplay systems and data for enemies, moves, and progression",
+            "Built data-driven content to support balancing and rapid iteration",
+            "Supported monetization features such as in-app purchases"
+        ],
+        tech: ["Unity", "C#"],
+        link: ""
+    },
+    {
+        title: "Cosmion",
+        slug: "cosmion",
+        subtitle: "Self-made Casual Android Game",
+		description: "Solo project: design and programming for a casual game about collecting celestial bodies, released on Android.",
+        images: [
+			"img/cosmion/cosmion-1.jpg",
+			"img/cosmion/cosmion-2.jpg",
+			"img/cosmion/cosmion-3.jpg",
+			"img/cosmion/cosmion-4.jpg"
+		],
+        bullets: [
+            "Owned end-to-end development (design + programming)",
+            "Integrated Firebase services",
+            "Published and maintained the Android build"
+        ],
+        tech: ["Unity", "C#", "Firebase", "Mobile", "Android"],
+        link: ""
+    },
+    {
+        title: "Repearth",
+        slug: "repearth",
+        subtitle: "Game Jam (2021)",
+		description: "One-dimensional game where you play as a volcano restoring nature by destroying parasitic threats, built in a fast-paced jam environment.",
+        images: [
+			"img/repearth/repearth-1.jpg",
+			"img/repearth/repearth-2.jpg",
+			"img/repearth/repearth-3.jpg",
+			"img/repearth/repearth-4.jpg",
+			"img/repearth/repearth-5.jpg"
+		],
+        bullets: [
+            "Built a complete prototype under tight time constraints",
+            "Focused on readable feedback and punchy moment-to-moment gameplay",
+            "Delivered a mobile-ready build"
+        ],
+        tech: ["Unity", "C#", "Mobile", "Android"],
+        link: ""
+    }
+];
 
-        async function getProjectImages(slug, maxTry = 20) {
-            const found = [];
-            for (let i = 1; i <= maxTry; i++) {
-                const urlJpg = `${IMG_ROOT}/${slug}/${slug}-${i}.jpg`;
-                const urlPng = `${IMG_ROOT}/${slug}/${slug}-${i}.png`;
-                const okJpg = await fileExists(urlJpg);
-                if (okJpg) { found.push(urlJpg); continue; }
-                const okPng = await fileExists(urlPng);
-                if (okPng) { found.push(urlPng); continue; }
-            }
-            return found;
-        }
 
-        function placeholderPreview(seed) {
-            const s = encodeURIComponent(seed || "project");
-            return `https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1400&q=70&sig=${s.length}`;
-        }
+/* =========================
+   PROJECT GRID
+========================= */
+const projectsGrid = document.getElementById('projectsGrid');
 
-        // ===== Projects data (12) =====
-        const projects = [
-            {
-                title: "FITT",
-                slug: "fitt",
-                subtitle: "Unreal VR Multiplayer Museum Experience",
-                description: "An immersive VR experience that presents the client’s history and philosophy as an interactive museum, designed for multiplayer sessions.",
-                bullets: [
-                    "Designed an explorable VR museum featuring videos, photos, and animated content",
-                    "Implemented client/server logic with an authoritative server setup",
-                    "Built and maintained a headless server build for multiplayer sessions"
-                ],
-                tech: ["Unreal Engine", "Meta Quest 2/3", "VR", "Authoritative Server", "Client Build", "Server Build"],
-                link: ""
-            },
-            {
-                title: "Colux",
-                slug: "colux",
-                subtitle: "Room Decorator for VR & AR",
-                description: "A Unity-based room decorator for VR and AR, supporting runtime downloads of data and 3D models from a remote backend.",
-                bullets: [
-                    "Developed the full client-side app for both VR and AR",
-                    "Defined shared data structures and synced with backend developers",
-                    "Implemented multiplayer VR and device screen sharing via Agora"
-                ],
-                tech: ["Unity", "C#", "Meta Quest", "VR", "Agora Plugin", "AR Foundation", "AR"],
-                link: ""
-            },
-            {
-                title: "XRTemplate",
-                slug: "xrtemplate",
-                subtitle: "Reusable XR Template",
-                description: "A reusable Unity XR template to place and visualize 3D models in AR and VR, built for fast adaptation across client projects.",
-                bullets: [
-                    "Built reusable interactions and tools for quick customization",
-                    "Created a flexible structure for multiple XR scenarios",
-                    "Focused on clean iteration workflows across projects"
-                ],
-                tech: ["Unity", "C#", "Meta Quest 2/3", "VR", "AR"],
-                link: ""
-            },
-            {
-                title: "Composer",
-                slug: "composer",
-                subtitle: "Virtual Store Composer (MVP)",
-                description: "An MVP that lets fashion clients build and arrange virtual stores, with runtime asset loading and tools to speed up setup and iteration.",
-                bullets: [
-                    "Owned Unity development end-to-end for the MVP",
-                    "Mentored two juniors (programmer + 3D artist) and coordinated production",
-                    "Wrote Blender Python scripts to reduce polycount and improve 3D efficiency"
-                ],
-                tech: ["Unity", "C#", "Blender", "Python", "Android", "iOS"],
-                link: ""
-            },
-            {
-                title: "Boat Composer",
-                slug: "boat-composer",
-                subtitle: "Boat Configurator",
-                description: "A boat configurator enabling deep customization through Unreal C++ and Blueprints, including editor tooling to support efficient content setup.",
-                bullets: [
-                    "Implemented customization features using C++ and Blueprints",
-                    "Created editor tools to speed up Blueprint and content workflows",
-                    "Worked on performance-minded pipelines for interactive configuration"
-                ],
-                tech: ["Unreal Engine", "C++", "Blueprint"],
-                link: ""
-            },
-            {
-                title: "Football Drama (HD / Switch)",
-                slug: "football-drama",
-                subtitle: "Technical Game Design + Programming",
-                description: "Porting and adaptation from mobile to full-screen platforms (PC and Nintendo Switch), with input/UX rework and tooling support.",
-                bullets: [
-                    "Reworked input systems for PC and Nintendo Switch",
-                    "Adapted UI/UX from mobile to full-screen layouts",
-                    "Contributed to early Roller Drama AI by designing decision trees in C#"
-                ],
-                tech: ["Unity", "C#", "Nintendo Dev Kit (Switch)"],
-                link: ""
-            },
-            {
-                title: "Unannounced Game (Stormind Games)",
-                slug: "stormind-unannounced",
-                subtitle: "AA Team – AI & Behaviors",
-                description: "Contributed to enemy AI design and implementation in an AA team environment, using production tools and agile workflows.",
-                bullets: [
-                    "Designed and implemented NPC behaviors with hierarchical state machines",
-                    "Delivered features and fixes within an agile production pipeline",
-                    "Worked with JIRA, Confluence, and Perforce in a studio environment"
-                ],
-                tech: ["Unreal Engine", "AI", "Behaviour Tree", "FSM", "PC", "Console"],
-                link: ""
-            },
-            {
-                title: "Hexplorando",
-                slug: "hexplorando",
-                subtitle: "First Demo (Video Games Without Borders)",
-                description: "Built the first playable demo, focusing on the core gameplay loop, solid project structure, and fast iteration.",
-                bullets: [
-                    "Delivered a first playable demo with a clear MVP scope",
-                    "Implemented core mechanics and supporting systems",
-                    "Improved iteration speed through clean structure and tooling"
-                ],
-                tech: ["Unity", "C#", "PC"],
-                link: ""
-            },
-            {
-                title: "Hatesick",
-                slug: "hatesick",
-                subtitle: "Graphic Adventure (Amnesty International Italy)",
-                description: "A point-and-click adventure about hate speech and its consequences, built with reusable systems and progression gating.",
-                bullets: [
-                    "Developed reusable point-and-click adventure systems",
-                    "Implemented gating and progression logic to drive narrative flow",
-                    "Collaborated with a multidisciplinary team following industry best practices"
-                ],
-                tech: ["Unity", "C#", "PC"],
-                link: ""
-            },
-            {
-                title: "Merge and Puzzles",
-                slug: "merge-and-puzzles",
-                subtitle: "Match-3 + Merge Mobile Game",
-                description: "Designed and developed data-driven gameplay systems for a match-3/merge mobile game, including progression and monetization support.",
-                bullets: [
-                    "Implemented gameplay systems and data for enemies, moves, and progression",
-                    "Built data-driven content to support balancing and rapid iteration",
-                    "Supported monetization features such as in-app purchases"
-                ],
-                tech: ["Unity", "C#"],
-                link: ""
-            },
-            {
-                title: "Cosmion",
-                slug: "cosmion",
-                subtitle: "Self-made Casual Android Game",
-                description: "A solo project: designed and developed a casual game about collecting celestial bodies, released on Android.",
-                bullets: [
-                    "Owned end-to-end development (design + programming)",
-                    "Integrated Firebase services",
-                    "Published and maintained the Android build"
-                ],
-                tech: ["Unity", "C#", "Firebase", "Mobile", "Android"],
-                link: ""
-            },
-            {
-                title: "Repearth",
-                slug: "repearth",
-                subtitle: "Game Jam (2021)",
-                description: "A one-dimensional game where you play as a volcano restoring nature by destroying parasitic threats—built in a fast-paced jam environment.",
-                bullets: [
-                    "Built a complete prototype under tight time constraints",
-                    "Focused on readable feedback and punchy moment-to-moment gameplay",
-                    "Delivered a mobile-ready build"
-                ],
-                tech: ["Unity", "C#", "Mobile", "Android"],
-                link: ""
-            }
-        ];
-
-        // ===== Render projects grid =====
-        const projectsGrid = document.getElementById('projectsGrid');
-
-        function renderProjects() {
-            projectsGrid.innerHTML = projects.map((p, idx) => {
-                const seed = p.slug || slugify(p.title);
-                const previewFallback = placeholderPreview(seed);
-                const previewLocalJpg = `${IMG_ROOT}/${seed}/${seed}-1.jpg`;
-                const previewLocalPng = `${IMG_ROOT}/${seed}/${seed}-1.png`;
-
-                return `
-                <div class="project-card" data-index="${idx}">
-                    <div class="project-thumb">
-                        <img
-                            src="${previewLocalJpg}"
-                            alt="${p.title}"
-                            onerror="this.onerror=null; this.src='${previewLocalPng}'; this.onerror=function(){this.onerror=null; this.src='${previewFallback}';};"
-                        />
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">${p.title}</div>
-                        <div class="project-desc">${p.description}</div>
-                        <div class="project-meta">
-                            ${(p.tech || []).slice(0, 6).map(t => `<span class="chip">${t}</span>`).join('')}
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-
-            document.querySelectorAll('.project-card').forEach(card => {
-                card.addEventListener('click', () => openProjectModal(parseInt(card.dataset.index, 10)));
-            });
-        }
-
-        // ===== Modal + Carousel logic =====
-        const modal = document.getElementById('projectModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalSubtitle = document.getElementById('modalSubtitle');
-        const modalBullets = document.getElementById('modalBullets');
-        const modalTech = document.getElementById('modalTech');
-        const modalLink = document.getElementById('modalLink');
-
-        const carouselTrack = document.getElementById('carouselTrack');
-        const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');
-        const carouselDots = document.getElementById('carouselDots');
-
-        let currentProjectIndex = 0;
-        let currentSlide = 0;
-
-        function setCarousel(images) {
-            currentSlide = 0;
-
-            if (!images || images.length === 0) {
-                images = [placeholderPreview(projects[currentProjectIndex].slug || projects[currentProjectIndex].title)];
-            }
-
-            carouselTrack.innerHTML = images.map(src => `
-                <div class="carousel-slide">
-                    <img src="${src}" alt="" />
+function renderProjects() {
+    projectsGrid.innerHTML = projects.map((p, i) => {
+        const preview = p.images[0] || IMG_PLACEHOLDER;
+        return `
+        <div class="project-card" data-index="${i}">
+            <div class="project-thumb">
+                <img src="${preview}" alt="${p.title}" loading="lazy">
+            </div>
+            <div class="project-body">
+                <div class="project-title">${p.title}</div>
+                <div class="project-desc">${p.description}</div>
+                <div class="project-meta">
+                    ${(p.tech || []).slice(0,6).map(t => `<span class="chip">${t}</span>`).join("")}
                 </div>
-            `).join('');
+            </div>
+        </div>`;
+    }).join("");
 
-            carouselDots.innerHTML = images.map((_, i) => `
-                <div class="dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></div>
-            `).join('');
+    document.querySelectorAll('.project-card').forEach(c => {
+        c.addEventListener('click', () =>
+            openProjectModal(parseInt(c.dataset.index, 10))
+        );
+    });
 
-            carouselDots.querySelectorAll('.dot').forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const i = parseInt(dot.dataset.dot, 10);
-                    goToSlide(i);
-                });
-            });
+    observe('.project-card');
+}
 
-            updateCarousel();
-        }
+/* =========================
+   MODAL + CAROUSEL
+========================= */
+const modal = document.getElementById('projectModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalSubtitle = document.getElementById('modalSubtitle');
+const modalBullets = document.getElementById('modalBullets');
+const modalTech = document.getElementById('modalTech');
+const modalLink = document.getElementById('modalLink');
 
-        function updateCarousel() {
-            const project = projects[currentProjectIndex];
-            const total = Math.max(1, (project._images || []).length);
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselDots = document.getElementById('carouselDots');
+const carouselPrev = document.getElementById('carouselPrev');
+const carouselNext = document.getElementById('carouselNext');
 
-            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+let currentSlide = 0;
 
-            carouselDots.querySelectorAll('.dot').forEach((d, i) => {
-                d.classList.toggle('active', i === currentSlide);
-            });
+function setCarousel(images) {
+    currentSlide = 0;
+    carouselTrack.innerHTML = images.map(src => `
+        <div class="carousel-slide">
+            <img src="${src}">
+        </div>
+    `).join("");
 
-            carouselPrev.style.opacity = total <= 1 ? '0.3' : '1';
-            carouselNext.style.opacity = total <= 1 ? '0.3' : '1';
-        }
+    carouselDots.innerHTML = images.map((_, i) =>
+        `<div class="dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></div>`
+    ).join("");
 
-        function goToSlide(i) {
-            const total = (projects[currentProjectIndex]._images || []).length;
-            if (total <= 1) { currentSlide = 0; updateCarousel(); return; }
-            currentSlide = (i + total) % total;
-            updateCarousel();
-        }
+    carouselDots.querySelectorAll('.dot').forEach(d =>
+        d.onclick = () => goToSlide(parseInt(d.dataset.dot, 10))
+    );
 
-        async function openProjectModal(index) {
-            currentProjectIndex = index;
-            const p = projects[index];
+    updateCarousel();
+}
 
-            modalTitle.textContent = p.title;
-            modalSubtitle.textContent = p.subtitle || '';
+function updateCarousel() {
+    carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    carouselDots.querySelectorAll('.dot').forEach((d, i) =>
+        d.classList.toggle('active', i === currentSlide)
+    );
+}
 
-            const bullets = (p.bullets && p.bullets.length)
-                ? p.bullets
-                : [
-                    "Built a solid gameplay/technical foundation and iterated quickly.",
-                    "Improved pipeline, ownership, and delivery in a production context.",
-                    "Focused on maintainable systems and clear collaboration."
-                ];
+function goToSlide(i) {
+    const total = carouselDots.children.length;
+    currentSlide = (i + total) % total;
+    updateCarousel();
+}
 
-            modalBullets.innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
-            modalTech.innerHTML = (p.tech || []).map(t => `<span class="chip">${t}</span>`).join('');
+function openProjectModal(index) {
+    const p = projects[index];
 
-            if (p.link && p.link.trim().length > 0) {
-                modalLink.style.display = 'inline-block';
-                modalLink.href = p.link;
-            } else {
-                modalLink.style.display = 'none';
-                modalLink.href = '#';
-            }
+    modalTitle.textContent = p.title;
+    modalSubtitle.textContent = p.subtitle || "";
+    modalBullets.innerHTML = (p.bullets || []).map(b => `<li>${b}</li>`).join("");
+    modalTech.innerHTML = (p.tech || []).map(t => `<span class="chip">${t}</span>`).join("");
 
-            const slug = p.slug || slugify(p.title);
-            const imgs = await getProjectImages(slug, 7);
+    if (p.link) {
+        modalLink.style.display = "inline-block";
+        modalLink.href = p.link;
+    } else {
+        modalLink.style.display = "none";
+    }
 
-            p._images = imgs.length ? imgs : [placeholderPreview(slug)];
-            setCarousel(p._images);
+    setCarousel(p.images.length ? p.images : [IMG_PLACEHOLDER]);
 
-            modal.classList.add('active');
-            modal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-        }
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
 
-        function closeProjectModal() {
-            modal.classList.remove('active');
-            modal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-        }
+function closeProjectModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
 
-        document.getElementById('modalCloseBtn').addEventListener('click', closeProjectModal);
-        document.getElementById('modalCloseBtn2').addEventListener('click', closeProjectModal);
+document.getElementById('modalCloseBtn').onclick = closeProjectModal;
+document.getElementById('modalCloseBtn2').onclick = closeProjectModal;
+modal.onclick = e => { if (e.target === modal) closeProjectModal(); };
+document.addEventListener('keydown', e => {
+    if (e.key === "Escape" && modal.classList.contains('active')) closeProjectModal();
+});
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeProjectModal();
-        });
+carouselPrev.onclick = () => goToSlide(currentSlide - 1);
+carouselNext.onclick = () => goToSlide(currentSlide + 1);
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) closeProjectModal();
-        });
-
-        carouselPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
-        carouselNext.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-        // Scroll reveal
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        function observeBaseElements() {
-            document.querySelectorAll('.skill-card, .timeline-item, .contact-item').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        }
-
-        function observeProjectCards() {
-            document.querySelectorAll('.project-card').forEach(el => {
-                if (el.dataset.observed) return;
-
-                el.dataset.observed = 'true';
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-
-                observer.observe(el);
-            });
-        }
-
-        const projectsObserverHook = new MutationObserver(() => {
-            document.querySelectorAll('.project-card').forEach(el => {
-                if (!el.dataset.observed) {
-                    el.dataset.observed = '1';
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(30px)';
-                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    observer.observe(el);
-                }
-            });
-        });
-
-        window.addEventListener('load', async () => {
-            createParticles();
-            observeBaseElements();
-
-            projectsObserverHook.observe(document.getElementById('projectsGrid'), { childList: true });
-            renderProjects();
-        });
-    </script>
+/* =========================
+   INIT
+========================= */
+window.addEventListener('load', () => {
+    createParticles();
+    observe('.skill-card, .timeline-item, .contact-item');
+    renderProjects();
+});
+</script>
 </body>
 </html>
