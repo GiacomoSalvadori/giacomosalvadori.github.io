@@ -616,6 +616,29 @@
 
             .btn { padding: 0.9rem 1.4rem; }
         }
+		
+		/* =========================
+   MOBILE MODAL FIX
+========================= */
+@media (max-width: 900px) {
+    .modal {
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .modal-content {
+        margin: 2rem auto;
+        max-height: calc(100vh - 4rem);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body {
+        overflow-y: auto;
+        max-height: calc(100vh - 240px);
+    }
+}
+
     </style>
 </head>
 
